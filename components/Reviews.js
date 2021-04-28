@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList, Linking, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Linking,
+  Button,
+} from "react-native";
 import firebase from "firebase";
 import Review from "./Review";
+import { ListItem, Avatar } from "react-native-elements";
 export default function Reviews({ navigation }) {
   const [reviews, setReviews] = React.useState([]);
   const firebaseConfig = {
@@ -19,21 +27,24 @@ export default function Reviews({ navigation }) {
       });
   }, []);
   return (
-    <View style={styles.container}>
-      <View style={styles.container}></View>
-      
-      
-        <FlatList
-          data={reviews}
-          keyExtractor={(item) => item.review}
-          renderItem={({ item }) => (
-            <Text style={{color:'blue'}} onPress={() => navigation.navigate('Review', item)}>
-            {item.artist} - {item.songName}
-            </Text>
-            
-          )}
-        /> 
-      
+    <View>
+      {reviews.map((l, i) => (
+        <ListItem
+          key={i}
+          bottomDivider
+          style={{ padding: StyleSheet.hairlineWidth }}
+          onPress={() => navigation.navigate("Review", l)}
+        >
+          {console.log(`Tässä lista ${Object.keys(l)}`)}
+          <Avatar source={{ uri: l.thumbnailUrl }} />
+          <ListItem.Content>
+            <ListItem.Title>
+              {l.artist} - {l.songName}
+            </ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      ))}
     </View>
   );
 }
