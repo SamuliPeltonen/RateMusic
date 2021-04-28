@@ -35,7 +35,6 @@ export default function Reviews({ navigation }) {
           style={{ padding: StyleSheet.hairlineWidth }}
           onPress={() => navigation.navigate("Review", l)}
         >
-          {console.log(`Tässä lista ${Object.keys(l)}`)}
           <Avatar source={{ uri: l.thumbnailUrl }} />
           <ListItem.Content>
             <ListItem.Title>

@@ -7,7 +7,8 @@ import Review from "./components/Review";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import BpmTap from "./components/BpmTap";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,16 +20,23 @@ function TabNav() {
           let iconName;
 
           if (route.name === "New Review") {
-            iconName = "edit";
+            iconName = "file-document-edit-outline";
           } else if (route.name === "All Reviews") {
-            iconName = "list";
+            iconName = "format-list-bulleted";
+          } else if (route.name === "BPM Tap") {
+            iconName = "metronome";
           }
-          return <Feather name={iconName} size={size} />;
+          return (
+            <View>
+              <MaterialCommunityIcons name={iconName} size={size} />
+            </View>
+          );
         },
       })}
     >
       <Tab.Screen name="New Review" component={NewReview} />
       <Tab.Screen name="All Reviews" component={StackNav} />
+      <Tab.Screen name="BPM Tap" component={BpmTap} />
     </Tab.Navigator>
   );
 }
