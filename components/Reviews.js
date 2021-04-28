@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text, StyleSheet, FlatList, Linking } from "react-native";
+import React, { Component } from "react";
+import { View, Text, StyleSheet, FlatList, Linking, Button } from "react-native";
 import firebase from "firebase";
-export default function Reviews() {
+import Review from "./Review";
+export default function Reviews({ navigation }) {
   const [reviews, setReviews] = React.useState([]);
   const firebaseConfig = {
     //CONFIG HERE
@@ -20,20 +21,19 @@ export default function Reviews() {
   return (
     <View style={styles.container}>
       <View style={styles.container}></View>
-      <FlatList
-        data={reviews}
-        keyExtractor={(item) => item.songName}
-        renderItem={({ item }) => (
-          <View style={styles.container}>
-            <Text
-              style={{ color: "blue" }}
-              onPress={() => Linking.openURL(item.url)}
-            >
-              {item.songName} - {item.artist}
+      
+      
+        <FlatList
+          data={reviews}
+          keyExtractor={(item) => item.songName}
+          renderItem={({ item }) => (
+            <Text style={{color:'blue'}} onPress={() => navigation.navigate('Review', item)}>
+            {item.artist} - {item.songName}
             </Text>
-          </View>
-        )}
-      />
+            
+          )}
+        /> 
+      
     </View>
   );
 }
