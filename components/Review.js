@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet, Image } from 'react-native'
+import { View, Text, Button, StyleSheet, Image, Linking } from 'react-native'
 export default function Review({route, navigation}) {
   const review = route.params
   console.log(review)
@@ -8,6 +8,9 @@ export default function Review({route, navigation}) {
       <Text>{review.artist} - {review.songName}</Text>
       <Image style={styles.albumArt} source={{ uri: `${review.thumbnailUrl}` }} />
       <Text>{review.review}</Text>
+      <Text style={{color:'blue'}} onPress={() => Linking.openURL(review.url)}>
+          Play on Spotify!
+        </Text>
       
     </View>
   );

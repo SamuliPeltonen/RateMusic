@@ -25,7 +25,7 @@ export default function Reviews({ navigation }) {
       
         <FlatList
           data={reviews}
-          keyExtractor={(item) => item.songName}
+          keyExtractor={(item) => item.review}
           renderItem={({ item }) => (
             <Text style={{color:'blue'}} onPress={() => navigation.navigate('Review', item)}>
             {item.artist} - {item.songName}

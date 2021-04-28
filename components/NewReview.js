@@ -10,6 +10,7 @@ import {
   processColor,
   Linking,
 } from "react-native";
+import { Input } from "react-native-elements";
 import firebase from "firebase";
 import Constants from "expo-constants";
 
@@ -24,9 +25,9 @@ export default function NewReview() {
   };
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
- }else {
+  } else {
     firebase.app(); // if already initialized, use that one
- }
+  }
 
   firebase.database().ref("reviews/");
   const fetchThumbnail = (url) => {
@@ -54,51 +55,50 @@ export default function NewReview() {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Spotify url"
+        <Input
+          placeholder="Paste the Spotify URL"
+          label="SPOTIFY URL"
           onChangeText={(url) => setUrl(url)}
+          value={url}
         />
       </View>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Artist Name"
+        <Input
+          placeholder="Type in the artist's name"
+          label="ARTIST"
           onChangeText={(artist) => setArtist(artist)}
         />
       </View>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Review"
+        <Input
+          placeholder="Type in your review"
+          label="REVIEW"
           onChangeText={(review) => setReview(review)}
         />
       </View>
 
       <Button title="Leave a review!" onPress={() => fetchThumbnail(url)} />
       <View>
-        <Image style={styles.albumArt} source={{ uri: `${thumbnailUrl}` }} />
-        <Text>{`${artist} - ${songName}`}</Text>
-        <Text style={styles.textwidth}>{review}</Text>
       </View>
-      <View>
-        <Text style={{color:'blue'}} onPress={() => Linking.openURL(url)}>
-          Play on Spotify!
-        </Text>
-        </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 50,
+    flex:1,
+    alignContent:'center'
   },
   textinput: {
-    maxWidth: 110,
+    borderColor: "black",
+    borderWidth: 1,
+    alignSelf: "stretch",
+    textAlign: "center",
+  },
+  reviewInput: {
+    width: 200,
+    height: 75,
     borderColor: "black",
     borderWidth: 1,
   },

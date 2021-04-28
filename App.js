@@ -7,11 +7,26 @@ import Review from "./components/Review";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Feather } from "@expo/vector-icons";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 function TabNav() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === "New Review") {
+            iconName = "edit";
+          } else if (route.name === "All Reviews") {
+            iconName = "list";
+          }
+          return <Feather name={iconName} size={size} />;
+        },
+      })}
+    >
       <Tab.Screen name="New Review" component={NewReview} />
       <Tab.Screen name="All Reviews" component={StackNav} />
     </Tab.Navigator>
@@ -30,9 +45,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <TabNav>
-
-        </TabNav>
+        <TabNav></TabNav>
       </NavigationContainer>
     </View>
   );
