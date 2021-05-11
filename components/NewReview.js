@@ -1,27 +1,19 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  Image,
-  processColor,
-  Linking,
-} from "react-native";
+import { StyleSheet, View, Button, Text } from "react-native";
 import { Input } from "react-native-elements";
 import firebase from "firebase";
-import Constants from "expo-constants";
 
 export default function NewReview() {
+  //States for different review-attributes
+  //Using a single object would be more elegant, but there aren't too many states so this is simpler
   const [url, setUrl] = React.useState("");
   const [artist, setArtist] = React.useState("");
   const [review, setReview] = React.useState("");
   const [thumbnailUrl, setThumbnailUrl] = React.useState("");
   const [songName, setSongName] = React.useState("");
   const firebaseConfig = {
-    //CONFIG HERE
+    //firebase config here
+
   };
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -30,17 +22,17 @@ export default function NewReview() {
   }
 
   firebase.database().ref("reviews/");
+
+  //This  function fetches the thumbail-url from the spotify oembed api
+  //In addition, it also pushes the review to firebase
   const fetchThumbnail = (url) => {
     const uri = url.substring(
       url.lastIndexOf("/track/") + 1,
       url.lastIndexOf("?")
     );
-    console.log(uri);
     fetch(`https://open.spotify.com/oembed?url=${url}`)
       .then((data) => data.json())
       .then((data) => {
-        setThumbnailUrl(data.thumbnail_url);
-        setSongName(data.title);
         console.log(thumbnailUrl + " " + songName);
         firebase.database().ref("reviews/").push({
           url: url,
@@ -49,7 +41,6 @@ export default function NewReview() {
           thumbnailUrl: data.thumbnail_url,
           songName: data.title,
         });
-        console.log("pushed to db");
       });
   };
   return (
@@ -79,6 +70,9 @@ export default function NewReview() {
 
       <Button title="Leave a review!" onPress={() => fetchThumbnail(url)} />
       <View>
+        <Text>
+          Hint: To get the spotify-URL, click on 'Share' and 'Copy Link'
+        </Text>
       </View>
     </View>
   );
@@ -87,8 +81,8 @@ export default function NewReview() {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
-    flex:1,
-    alignContent:'center'
+    flex: 1,
+    alignContent: "center",
   },
   textinput: {
     borderColor: "black",

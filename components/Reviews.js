@@ -6,15 +6,19 @@ import {
   FlatList,
   Linking,
   Button,
+  ScrollView,
 } from "react-native";
 import firebase from "firebase";
-import Review from "./Review";
 import { ListItem, Avatar } from "react-native-elements";
 export default function Reviews({ navigation }) {
   const [reviews, setReviews] = React.useState([]);
   const firebaseConfig = {
-    //CONFIG HERE
+    //firebase config here
+
   };
+
+  //useEffect populates a list of reviews by getting all reviews from firebase
+
   React.useEffect(() => {
     firebase
       .database()
@@ -23,16 +27,16 @@ export default function Reviews({ navigation }) {
         const data = snapshot.val();
         const revs = Object.values(data);
         setReviews(revs);
-        console.log(reviews);
       });
   }, []);
   return (
-    <View>
+    <ScrollView>
       {reviews.map((l, i) => (
         <ListItem
           key={i}
           bottomDivider
           style={{ padding: StyleSheet.hairlineWidth }}
+          //We send a single review (in  this case l) to Review.js if the user navigates to a review-page
           onPress={() => navigation.navigate("Review", l)}
         >
           <Avatar source={{ uri: l.thumbnailUrl }} />
@@ -44,7 +48,7 @@ export default function Reviews({ navigation }) {
           <ListItem.Chevron />
         </ListItem>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -54,5 +58,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  textwidth: {
+    maxWidth: 225,
+    paddingBottom: 25,
+    paddingTop: 25,
   },
 });

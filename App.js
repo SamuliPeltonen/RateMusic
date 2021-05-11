@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import NewReview from "./components/NewReview";
@@ -7,7 +6,7 @@ import Review from "./components/Review";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BpmTap from "./components/BpmTap";
 
 const Stack = createStackNavigator();
