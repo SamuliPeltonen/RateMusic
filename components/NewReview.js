@@ -41,7 +41,11 @@ export default function NewReview() {
           thumbnailUrl: data.thumbnail_url,
           songName: data.title,
         });
-      });
+        console.log("ASLDKJASLKADJ")
+        setReview("")
+        setArtist("")
+        setUrl("")
+      })
   };
   return (
     <View style={styles.container}>
@@ -58,6 +62,7 @@ export default function NewReview() {
           placeholder="Type in the artist's name"
           label="ARTIST"
           onChangeText={(artist) => setArtist(artist)}
+          value={artist}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -65,6 +70,7 @@ export default function NewReview() {
           placeholder="Type in your review"
           label="REVIEW"
           onChangeText={(review) => setReview(review)}
+          value={review}
         />
       </View>
 
